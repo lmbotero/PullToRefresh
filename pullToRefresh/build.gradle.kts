@@ -1,0 +1,109 @@
+import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+
+plugins {
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.maven.publish)
+}
+
+kotlin {
+    jvmToolchain(23)
+    androidTarget {
+        // https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+    }
+
+    jvm()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach {
+        it.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
+
+        androidMain.dependencies {
+            implementation(compose.uiTooling)
+            implementation(libs.androidx.activityCompose)
+        }
+
+        jvmMain.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
+    }
+}
+
+android {
+    namespace = "com.lumbot.pulltorefresh"
+    compileSdk = 35
+
+    defaultConfig {
+        minSdk = 21
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+// https://developer.android.com/develop/ui/compose/testing#setup
+dependencies {
+    androidTestImplementation(libs.androidx.uitest.junit4)
+    debugImplementation(libs.androidx.uitest.testManifest)
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.DEFAULT)
+    signAllPublications()
+
+    coordinates("com.lumbot.pulltorefresh", "pull-to-refresh", "1.0.0")
+
+    pom {
+        name.set(project.name)
+        description.set("Adds a pull to refresh container that works in iOS, Android and JVM")
+        inceptionYear.set("2025")
+        url.set("https://github.com/lmbotero/PullToRefresh/")
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+        }
+        developers {
+            developer {
+                id.set("lmbotero")
+                name.set("Luis Miguel Botero Tobon")
+                url.set("https://github.com/lmbotero/")
+            }
+        }
+        scm {
+            url.set("https://github.com/lmbotero/PullToRefresh/")
+            connection.set("scm:git:git://github.com/lmbotero/PullToRefresh.git")
+            developerConnection.set("scm:git:ssh://git@github.com:lmbotero/PullToRefresh.git")
+        }
+    }
+}
