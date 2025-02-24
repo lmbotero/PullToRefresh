@@ -3,14 +3,14 @@
 A simple and lightweight Compose Multiplatform library that implements Material3-based
 pull-to-refresh functionality for JVM, Android, and iOS platforms.
 
-## Features
+## ✨ Features
 
-- **Material 3 Pull-to-Refresh**: Fully adheres to Material 3 design principles.
-- **Multiplatform Support**: Works seamlessly on Android, iOS, and JVM.
-- **Mouse Support for JVM**: Enables pull-to-refresh via mouse click and drag.
-- **Customizable Indicator**: Easily style the refresh indicator to match your app's theme.
+- **Material 3 Pull-to-Refresh**: Built following Material 3 design principles.
+- **Multiplatform Support**: Works seamlessly across Android, iOS, and JVM.
+- **Mouse Support for JVM**: Allows pull-to-refresh using mouse click and drag.
+- **Customizable Indicator**: Easily style or replace the default refresh indicator.
 
-## Installation
+## 📦 Installation
 
 Add the dependency to your `build.gradle.kts` (or `build.gradle` for Groovy users):
 
@@ -18,29 +18,102 @@ Add the dependency to your `build.gradle.kts` (or `build.gradle` for Groovy user
 implementation("com.lumbot.pulltorefresh:version")
 ```
 
-## Basic Usage
+## 🚀 Basic Usage
 
-To use PullToRefreshLayout, wrap your composable content within it:
+To use PullToRefreshLayout, wrap your composable content inside `PullToRefreshLayout`:
 
 ```
 PullToRefreshLayout(
     isRefreshing = isLoading,
-    onRefresh = { // execute pull-to-refresh task },
+    onRefresh = { // execute your pull-to-refresh task },
 ) {
     // Your composable content here
 }
 ```
 
-## Customization
+## 🎨 Customization
 
-You can customize the refresh indicator using Material3's styling options.
+### Modify Threshold & State
+
+You can customize the refresh threshold and state using `rememberPullToRefreshConfig`.
+
+```
+val config = rememberPullToRefreshConfig(
+    enabled = true,
+    threshold = 60.dp
+)
+
+PullToRefreshLayout(
+    isRefreshing = isLoading,
+    onRefresh = { // execute your pull-to-refresh task },
+    config = config
+) {
+    // Your composable content here
+}
+```
+
+### Custom Refresh Indicator
+
+Override the default indicator using the `indicator` parameter.
+
 See https://developer.android.com/reference/kotlin/androidx/compose/material3/pulltorefresh/package-summary.html
-for reference
+to see the official material3 `pull-to-refresh` reference
 
-## License
+## 📚 API Reference
+
+### PullToRefreshLayout
+
+```
+@Composable
+fun PullToRefreshLayout(
+    isRefreshing: Boolean,
+    onRefresh: () -> Unit,
+    modifier: Modifier = Modifier,
+    config: PullToRefreshConfig = rememberPullToRefreshConfig(),
+    contentAlignment: Alignment = Alignment.TopStart,
+    content: @Composable BoxScope.() -> Unit
+)
+```
+
+| Parameter          | Type                              | Description                                                 |
+|--------------------|-----------------------------------|-------------------------------------------------------------|
+| `isRefreshing`     | `Boolean`                         | Whether the content is currently refreshing                 |
+| `onRefresh`        | `() -> Unit`                      | A function to execute when the content is pulled to refresh |
+| `modifier`         | `Modifier`                        | Modifier for the layout                                     |
+| `config`           | `PullToRefreshConfig`             | Configuration for the pull-to-refresh                       |
+| `contentAlignment` | `Alignment`                       | Alignment for the content                                   |
+| `content`          | `@Composable BoxScope.() -> Unit` | The content to be pulled to refresh                         |
+
+### PullToRefreshConfig
+
+```
+data class PullToRefreshConfig(
+    val enabled: Boolean = true,
+    val threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
+    val state: PullToRefreshState,
+)
+```
+
+### rememberPullToRefreshConfig
+
+```
+@Composable
+fun rememberPullToRefreshConfig(
+    enabled: Boolean = true,
+    threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
+    state: PullToRefreshState = rememberPullToRefreshState(),
+): PullToRefreshConfig
+```
+
+- Returns: A `PullToRefreshConfig` instance with saved state.
+
+## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
-Happy coding! 🚀
+## 🚀 Happy coding!
+
+This library simplifies pull-to-refresh for Compose Multiplatform, making it easy to use and
+customize! 💙
