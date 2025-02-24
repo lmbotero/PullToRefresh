@@ -54,7 +54,7 @@ internal fun App() =
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(text = if (isLoading) "Loading, please wait" else "Pull to refresh")
             }

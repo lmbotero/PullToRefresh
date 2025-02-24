@@ -21,12 +21,11 @@ fun rememberPullToRefreshConfig(
     enabled: Boolean = true,
     threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
     state: PullToRefreshState = rememberPullToRefreshState(),
-): PullToRefreshConfig {
-    return rememberSaveable {
+): PullToRefreshConfig =
+    rememberSaveable {
         PullToRefreshConfig(
             enabled = enabled,
             threshold = threshold,
             state = state,
         )
     }
-}

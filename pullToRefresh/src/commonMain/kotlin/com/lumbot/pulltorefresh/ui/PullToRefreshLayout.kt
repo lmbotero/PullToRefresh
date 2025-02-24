@@ -25,7 +25,7 @@ fun PullToRefreshLayout(
         DefaultIndicator(
             isRefreshing = isRefreshing,
             state = config.state,
-            threshold = config.threshold
+            threshold = config.threshold,
         )
     },
     contentAlignment: Alignment = Alignment.TopStart,
@@ -45,13 +45,12 @@ fun PullToRefreshLayout(
                     enabled = config.enabled,
                     threshold = config.threshold,
                     onRefresh = currentOnRefresh.value,
-                )
-                .handlePullToRefreshGestures(
+                ).handlePullToRefreshGestures(
                     scope = scope,
                     state = config.state,
                     enabled = config.enabled,
                     onRefresh = currentOnRefresh.value,
-                    thresholdPx = thresholdPx
+                    thresholdPx = thresholdPx,
                 ),
         contentAlignment = contentAlignment,
     ) {

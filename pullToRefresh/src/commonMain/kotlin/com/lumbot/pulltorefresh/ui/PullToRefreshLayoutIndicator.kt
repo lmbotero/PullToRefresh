@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.Dp
 fun BoxScope.DefaultIndicator(
     isRefreshing: Boolean,
     state: PullToRefreshState,
-    threshold: Dp
+    threshold: Dp,
 ) {
     Indicator(
         state = state,

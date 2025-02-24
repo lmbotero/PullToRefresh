@@ -14,24 +14,34 @@ fun Modifier.handlePullToRefreshGestures(
     state: PullToRefreshState,
     enabled: Boolean = true,
     onRefresh: () -> Unit,
-    thresholdPx: Float
-): Modifier = if (enabled) this.pointerInput(Unit) {
-    detectVerticalDragGestures(
-        onVerticalDrag = { _, dragAmount ->
-            scope.launch {
-                state.snapTo((state.distanceFraction + dragAmount / thresholdPx).coerceIn(0f, 1f))
-            }
-        },
-        onDragEnd = {
-            scope.launch {
-                if (state.distanceFraction >= 1f) {
-                    onRefresh()
-                }
-                state.animateToHidden()
-            }
-        },
-        onDragCancel = {
-            scope.launch { state.animateToHidden() }
+    thresholdPx: Float,
+): Modifier =
+    if (enabled) {
+        this.pointerInput(Unit) {
+            detectVerticalDragGestures(
+                onVerticalDrag = { _, dragAmount ->
+                    scope.launch {
+                        state.snapTo(
+                            (state.distanceFraction + dragAmount / thresholdPx).coerceIn(
+                                0f,
+                                1f,
+                            ),
+                        )
+                    }
+                },
+                onDragEnd = {
+                    scope.launch {
+                        if (state.distanceFraction >= 1f) {
+                            onRefresh()
+                        }
+                        state.animateToHidden()
+                    }
+                },
+                onDragCancel = {
+                    scope.launch { state.animateToHidden() }
+                },
+            )
         }
-    )
-} else Modifier
+    } else {
+        Modifier
+    }
