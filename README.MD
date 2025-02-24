@@ -20,12 +20,12 @@ implementation("com.lumbot.pulltorefresh:version")
 
 ## 🚀 Basic Usage
 
-To use PullToRefreshLayout, wrap your composable content inside `PullToRefreshLayout`:
+Wrap your composable content inside `PullToRefreshLayout`:
 
-```
+```kotlin
 PullToRefreshLayout(
     isRefreshing = isLoading,
-    onRefresh = { // execute your pull-to-refresh task },
+    onRefresh = { /* Execute your pull-to-refresh task */ },
 ) {
     // Your composable content here
 }
@@ -37,7 +37,7 @@ PullToRefreshLayout(
 
 You can customize the refresh threshold and state using `rememberPullToRefreshConfig`.
 
-```
+```kotlin
 val config = rememberPullToRefreshConfig(
     enabled = true,
     threshold = 60.dp
@@ -45,7 +45,7 @@ val config = rememberPullToRefreshConfig(
 
 PullToRefreshLayout(
     isRefreshing = isLoading,
-    onRefresh = { // execute your pull-to-refresh task },
+    onRefresh = { /* execute your pull-to-refresh task */ },
     config = config
 ) {
     // Your composable content here
@@ -63,7 +63,7 @@ to see the official material3 `pull-to-refresh` reference
 
 ### PullToRefreshLayout
 
-```
+```kotlin
 @Composable
 fun PullToRefreshLayout(
     isRefreshing: Boolean,
@@ -86,7 +86,7 @@ fun PullToRefreshLayout(
 
 ### PullToRefreshConfig
 
-```
+```kotlin
 data class PullToRefreshConfig(
     val enabled: Boolean = true,
     val threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
@@ -96,7 +96,7 @@ data class PullToRefreshConfig(
 
 ### rememberPullToRefreshConfig
 
-```
+```kotlin
 @Composable
 fun rememberPullToRefreshConfig(
     enabled: Boolean = true,
