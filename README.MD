@@ -82,7 +82,7 @@ fun PullToRefreshLayout(
 | `modifier`         | `Modifier`                        | Modifier for the layout                                     |
 | `config`           | `PullToRefreshConfig`             | Configuration for the pull-to-refresh                       |
 | `contentAlignment` | `Alignment`                       | Alignment for the content                                   |
-| `content`          | `@Composable BoxScope.() -> Unit` | The content to be pulled to refresh                         |
+| `content`          | `@Composable BoxScope.() -> Unit` | Composable content                                          |
 
 ### PullToRefreshConfig
 
