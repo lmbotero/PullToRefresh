@@ -1,6 +1,7 @@
 package com.lumbot.pulltorefresh
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lumbot.pulltorefresh.theme.AppTheme
+import com.lumbot.pulltorefresh.ui.PullToRefreshLayout
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -38,22 +40,21 @@ internal fun App() =
             }
         }
 
-        Column(
+        PullToRefreshLayout(
             modifier =
                 Modifier
                     .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surface)
                     .windowInsetsPadding(WindowInsets.safeDrawing)
                     .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            isRefreshing = isLoading,
+            onRefresh = onPullToRefresh,
+            contentAlignment = Alignment.Center,
         ) {
-            PullToRefreshLayout(
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.surface),
-                isRefreshing = isLoading,
-                onRefresh = onPullToRefresh,
-                contentAlignment = Alignment.Center,
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(text = if (isLoading) "Loading, please wait" else "Pull to refresh")
             }
