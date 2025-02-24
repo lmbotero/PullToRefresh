@@ -1,35 +1,46 @@
-# Compose Multiplatform Application
+# Compose Multiplatform PullToRefresh
 
-## Before running!
+A simple and lightweight Compose Multiplatform library that implements Material3-based
+pull-to-refresh functionality for JVM, Android, and iOS platforms.
 
-- check your system with [KDoctor](https://github.com/Kotlin/kdoctor)
-- install JDK 17 or higher on your machine
-- add `local.properties` file to the project root and set a path to Android SDK there
+## Features
 
-### Android
+- **Material 3 Pull-to-Refresh**: Fully adheres to Material 3 design principles.
+- **Multiplatform Support**: Works seamlessly on Android, iOS, and JVM.
+- **Mouse Support for JVM**: Enables pull-to-refresh via mouse click and drag.
+- **Customizable Indicator**: Easily style the refresh indicator to match your app's theme.
 
-To run the application on android device/emulator:
+## Installation
 
-- open project in Android Studio and run imported android run configuration
+Add the dependency to your `build.gradle.kts` (or `build.gradle` for Groovy users):
 
-To build the application bundle:
+```kotlin
+implementation("com.lumbot.pulltorefresh:version")
+```
 
-- run `./gradlew :composeApp:assembleDebug`
-- find `.apk` file in `composeApp/build/outputs/apk/debug/composeApp-debug.apk`
-  Run android UI tests on the connected device: `./gradlew :composeApp:connectedDebugAndroidTest`
+## Basic Usage
 
-### Desktop
+To use PullToRefreshLayout, wrap your composable content within it:
 
-Run the desktop application: `./gradlew :composeApp:run`
-Run desktop UI tests: `./gradlew :composeApp:jvmTest`
+```
+PullToRefreshLayout(
+    isRefreshing = isLoading,
+    onRefresh = { // execute pull-to-refresh task },
+) {
+    // Your composable content here
+}
+```
 
-### iOS
+## Customization
 
-To run the application on iPhone device/simulator:
+You can customize the refresh indicator using Material3's styling options.
+See https://developer.android.com/reference/kotlin/androidx/compose/material3/pulltorefresh/package-summary.html
+for reference
 
-- Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration
-- Or
-  use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile)
-  for Android Studio
-  Run iOS simulator UI tests: `./gradlew :composeApp:iosSimulatorArm64Test`
+## License
 
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+---
+
+Happy coding! 🚀

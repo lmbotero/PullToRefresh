@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.compose).apply(false)
     alias(libs.plugins.android.application).apply(false)
     alias(libs.plugins.android.library).apply(false)
-    alias(libs.plugins.dokka)
     alias(libs.plugins.jlleitschuh.ktlint)
 }
 
@@ -15,10 +14,4 @@ subprojects {
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         version.set("1.0.1")
     }
-}
-
-tasks.register<Copy>("setUpGitHooks") {
-    group = "help"
-    from("$rootDir/.hooks")
-    into("$rootDir/.git/hooks")
 }
