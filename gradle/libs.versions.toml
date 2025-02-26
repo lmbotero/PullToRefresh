@@ -6,7 +6,6 @@ agp = "8.8.1"
 androidx-activityCompose = "1.10.0"
 androidx-uiTest = "1.7.8"
 mavenPublish = "0.30.0"
-jlleitschuhKtlint = "12.1.2"
 dokka = "2.0.0"
 
 [libraries]
@@ -23,5 +22,4 @@ compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
-jlleitschuh-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "jlleitschuhKtlint" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
