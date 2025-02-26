@@ -11,7 +11,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(23)
+    jvmToolchain(17)
     androidTarget {
         // https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
