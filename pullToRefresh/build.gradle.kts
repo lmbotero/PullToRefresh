@@ -91,7 +91,7 @@ mavenPublishing {
     publishToMavenCentral(SonatypeHost.DEFAULT)
     signAllPublications()
 
-    coordinates("com.lumbot.pulltorefresh", "pull-to-refresh", "1.0.0")
+    coordinates("com.lumbot.pulltorefresh", "pull-to-refresh", "1.0.0-SNAPSHOT")
 
     pom {
         name.set(project.name)
