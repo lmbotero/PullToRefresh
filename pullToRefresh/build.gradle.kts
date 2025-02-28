@@ -83,15 +83,14 @@ mavenPublishing {
         KotlinMultiplatform(
             javadocJar = JavadocJar.Dokka("dokkaGenerate"),
             sourcesJar = true,
-            androidVariantsToPublish = listOf("debug", "release")
-        )
+            androidVariantsToPublish = listOf("release"),
+        ),
     )
 
-
-    publishToMavenCentral(SonatypeHost.DEFAULT)
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
 
-    coordinates("com.lumbot.pulltorefresh", "pull-to-refresh", "1.0.0-SNAPSHOT")
+    coordinates("io.github.lmbotero", "pull-to-refresh", "1.0.0")
 
     pom {
         name.set(project.name)
