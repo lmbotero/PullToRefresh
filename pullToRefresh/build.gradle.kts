@@ -4,6 +4,8 @@ import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -11,6 +13,7 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.android.library)
     alias(libs.plugins.maven.publish)
+    id("signing")
 }
 
 kotlin {
@@ -79,6 +82,12 @@ dependencies {
 }
 
 mavenPublishing {
+    coordinates(
+        groupId = libs.versions.groupId.get(),
+        artifactId = libs.versions.artifactId.get(),
+        version = libs.versions.libVersion.get(),
+    )
+
     configure(
         KotlinMultiplatform(
             javadocJar = JavadocJar.Dokka("dokkaGenerate"),
@@ -86,11 +95,6 @@ mavenPublishing {
             androidVariantsToPublish = listOf("release"),
         ),
     )
-
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-    signAllPublications()
-
-    coordinates("io.github.lmbotero", "pull-to-refresh", "1.0.0")
 
     pom {
         name.set(project.name)
@@ -117,4 +121,19 @@ mavenPublishing {
             developerConnection.set("scm:git:ssh://git@github.com:lmbotero/PullToRefresh.git")
         }
     }
+
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+}
+
+val keystorePropertiesFile = rootProject.file("local.properties")
+val keystoreProperties = Properties()
+keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+signing {
+    useInMemoryPgpKeys(
+        keystoreProperties["signing.keyId"].toString(),
+        File(keystoreProperties["signing.secretKeyFile"].toString()).readText(),
+        keystoreProperties["signing.password"].toString(),
+    )
 }

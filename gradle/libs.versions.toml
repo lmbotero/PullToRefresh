@@ -9,6 +9,10 @@ mavenPublish = "0.30.0"
 dokka = "2.0.0"
 jlleitschuhKtlint = "12.1.2"
 
+groupId = "io.github.lmbotero"
+artifactId = "pull-to-refresh"
+libVersion = "1.0.0"
+
 [libraries]
 
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
