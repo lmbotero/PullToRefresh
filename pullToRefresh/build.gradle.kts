@@ -1,3 +1,5 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -77,6 +79,15 @@ dependencies {
 }
 
 mavenPublishing {
+    configure(
+        KotlinMultiplatform(
+            javadocJar = JavadocJar.Dokka("dokkaGenerate"),
+            sourcesJar = true,
+            androidVariantsToPublish = listOf("debug", "release")
+        )
+    )
+
+
     publishToMavenCentral(SonatypeHost.DEFAULT)
     signAllPublications()
 
