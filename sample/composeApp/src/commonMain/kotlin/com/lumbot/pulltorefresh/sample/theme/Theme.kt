@@ -1,4 +1,4 @@
-package com.lumbot.pulltorefresh.theme
+package com.lumbot.pulltorefresh.sample.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

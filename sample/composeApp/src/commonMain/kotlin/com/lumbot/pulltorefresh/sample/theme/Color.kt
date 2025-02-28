@@ -1,4 +1,4 @@
-package com.lumbot.pulltorefresh.theme
+package com.lumbot.pulltorefresh.sample.theme
 
 import androidx.compose.ui.graphics.Color
 

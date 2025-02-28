@@ -1,4 +1,4 @@
-package com.lumbot.pulltorefresh.theme
+package com.lumbot.pulltorefresh.sample.theme
 
 import android.app.Activity
 import androidx.compose.runtime.Composable

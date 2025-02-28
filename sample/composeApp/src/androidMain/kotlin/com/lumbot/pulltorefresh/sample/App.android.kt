@@ -1,4 +1,4 @@
-package com.lumbot.pulltorefresh
+package com.lumbot.pulltorefresh.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

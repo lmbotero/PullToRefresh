@@ -28,7 +28,7 @@ kotlin {
         it.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-            binaryOption("bundleId", "com.lumbot.pulltorefresh.iosApp")
+            binaryOption("bundleId", "com.lumbot.pulltorefresh.sample.iosApp")
         }
     }
 
@@ -60,14 +60,14 @@ kotlin {
 }
 
 android {
-    namespace = "com.lumbot.pulltorefresh"
+    namespace = "com.lumbot.pulltorefresh.sample"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 21
         targetSdk = 35
 
-        applicationId = "com.lumbot.pulltorefresh.androidApp"
+        applicationId = "com.lumbot.pulltorefresh.sample.androidApp"
         versionCode = 1
         versionName = "1.0.0"
 
@@ -98,7 +98,7 @@ compose.desktop {
             }
             macOS {
                 iconFile.set(project.file("desktopAppIcons/MacosIcon.icns"))
-                bundleID = "com.lumbot.pulltorefresh.desktopApp"
+                bundleID = "com.lumbot.pulltorefresh.sample.desktopApp"
             }
         }
     }

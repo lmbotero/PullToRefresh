@@ -1,4 +1,4 @@
-package com.lumbot.pulltorefresh
+package com.lumbot.pulltorefresh.sample
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lumbot.pulltorefresh.theme.AppTheme
+import com.lumbot.pulltorefresh.sample.theme.AppTheme
 import com.lumbot.pulltorefresh.ui.PullToRefreshLayout
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
