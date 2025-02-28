@@ -4,8 +4,6 @@ import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import java.io.FileInputStream
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -13,7 +11,6 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.android.library)
     alias(libs.plugins.maven.publish)
-    id("signing")
 }
 
 kotlin {
@@ -124,16 +121,4 @@ mavenPublishing {
 
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
-}
-
-val keystorePropertiesFile = rootProject.file("local.properties")
-val keystoreProperties = Properties()
-keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-
-signing {
-    useInMemoryPgpKeys(
-        keystoreProperties["signing.keyId"].toString(),
-        File(keystoreProperties["signing.secretKeyFile"].toString()).readText(),
-        keystoreProperties["signing.password"].toString(),
-    )
 }
