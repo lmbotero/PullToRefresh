@@ -1,5 +1,5 @@
 import androidx.compose.ui.window.ComposeUIViewController
-import com.lumbot.pulltorefresh.sample.App
+import io.github.lmbotero.pulltorefresh.sample.App
 import platform.UIKit.UIViewController
 
 fun MainViewController(): UIViewController = ComposeUIViewController { App() }
