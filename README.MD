@@ -15,7 +15,7 @@ pull-to-refresh functionality for JVM, Android, and iOS platforms.
 Add the dependency to your `build.gradle.kts` (or `build.gradle` for Groovy users):
 
 ```kotlin
-implementation("com.lumbot.pulltorefresh:version")
+implementation("io.github.lmbotero:pull-to-refresh:<latest-version>")
 ```
 
 ## 🚀 Basic Usage
