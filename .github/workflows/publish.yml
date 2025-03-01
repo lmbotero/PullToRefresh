@@ -1,23 +1,25 @@
 name: Publish
+
 on:
   workflow_dispatch:
     inputs:
       versionName:
-        description: 'Version Name'
+        description: "Version Name"
         required: true
 
 jobs:
-  job-name:
-    permissions:
-      contents: write
-      
   publish:
     name: Publish
     runs-on: macos-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -50,18 +52,17 @@ jobs:
           git config --global user.email "lmiguel1995@gmail.com"
           git config --global user.name "$GITHUB_ACTOR"
 
-          git tag -a $TAG -m "Release v$TAG"
-          git push origin $TAG
-        env:
-          TAG: ${{ github.event.inputs.versionName }}
+          VERSION_TAG="v${{ github.event.inputs.versionName }}"
+          git tag -a "$VERSION_TAG" -m "Release $VERSION_TAG"
+          git push origin "$VERSION_TAG"
 
       - name: Create Release on GitHub
         id: create_release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.event.inputs.versionName }}
-          release_name: ${{ github.event.inputs.versionName }}
-          draft: true
+          tag_name: v${{ github.event.inputs.versionName }}
+          release_name: v${{ github.event.inputs.versionName }}
+          draft: false
           prerelease: false
