@@ -1,3 +1,9 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/lmbotero/PullToRefresh/code_style.yml?branch=main&label=Check%20code%20style)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/lmbotero/PullToRefresh/build.yml?branch=main&label=Build%20multiplatform%20project)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/lmbotero/PullToRefresh/wiki.yml?branch=main&label=Publish%20wiki)
+![GitHub Release](https://img.shields.io/github/v/release/lmbotero/PullToRefresh)
+![GitHub License](https://img.shields.io/github/license/lmbotero/PullToRefresh)
+
 # Compose Multiplatform PullToRefresh
 
 A simple and lightweight Compose Multiplatform library that implements Material3-based
