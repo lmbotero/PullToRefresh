@@ -8,14 +8,12 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BoxScope.DefaultIndicator(
-    isRefreshing: Boolean,
     state: PullToRefreshState,
-    threshold: Dp,
+    isRefreshing: Boolean,
 ) {
     Indicator(
         state = state,
@@ -23,6 +21,5 @@ fun BoxScope.DefaultIndicator(
         modifier = Modifier.align(Alignment.TopCenter),
         containerColor = MaterialTheme.colorScheme.primary,
         color = MaterialTheme.colorScheme.onPrimary,
-        threshold = threshold,
     )
 }

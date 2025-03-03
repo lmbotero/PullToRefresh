@@ -3,7 +3,9 @@ package io.github.lmbotero.pulltorefresh.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.material3.pulltorefresh.pullToRefresh
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
@@ -21,11 +23,11 @@ fun PullToRefreshLayout(
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
     config: PullToRefreshConfig = rememberPullToRefreshConfig(),
+    state: PullToRefreshState = rememberPullToRefreshState(),
     indicator: @Composable BoxScope.() -> Unit = {
         DefaultIndicator(
+            state = state,
             isRefreshing = isRefreshing,
-            state = config.state,
-            threshold = config.threshold,
         )
     },
     contentAlignment: Alignment = Alignment.TopStart,
@@ -41,13 +43,13 @@ fun PullToRefreshLayout(
             modifier
                 .pullToRefresh(
                     isRefreshing = isRefreshing,
-                    state = config.state,
+                    state = state,
                     enabled = config.enabled,
                     threshold = config.threshold,
                     onRefresh = currentOnRefresh.value,
                 ).handlePullToRefreshGestures(
                     scope = scope,
-                    state = config.state,
+                    state = state,
                     enabled = config.enabled,
                     onRefresh = currentOnRefresh.value,
                     thresholdPx = thresholdPx,

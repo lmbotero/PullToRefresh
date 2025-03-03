@@ -76,6 +76,13 @@ fun PullToRefreshLayout(
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
     config: PullToRefreshConfig = rememberPullToRefreshConfig(),
+    state: PullToRefreshState = rememberPullToRefreshState(),
+    indicator: @Composable BoxScope.() -> Unit = {
+        DefaultIndicator(
+            state = state,
+            isRefreshing = isRefreshing,
+        )
+    },
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit
 )
@@ -87,6 +94,8 @@ fun PullToRefreshLayout(
 | `onRefresh`        | `() -> Unit`                      | A function to execute when the content is pulled to refresh |
 | `modifier`         | `Modifier`                        | Modifier for the layout                                     |
 | `config`           | `PullToRefreshConfig`             | Configuration for the pull-to-refresh                       |
+| `state`            | `PullToRefreshState`              | State for the pull-to-refresh                               |
+| `indicator`        | `@Composable BoxScope.() -> Unit` | Composable loading indicator                                |
 | `contentAlignment` | `Alignment`                       | Alignment for the content                                   |
 | `content`          | `@Composable BoxScope.() -> Unit` | Composable content                                          |
 
@@ -96,7 +105,6 @@ fun PullToRefreshLayout(
 data class PullToRefreshConfig(
     val enabled: Boolean = true,
     val threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
-    val state: PullToRefreshState,
 )
 ```
 
@@ -107,7 +115,6 @@ data class PullToRefreshConfig(
 fun rememberPullToRefreshConfig(
     enabled: Boolean = true,
     threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
-    state: PullToRefreshState = rememberPullToRefreshState(),
 ): PullToRefreshConfig
 ```
 
