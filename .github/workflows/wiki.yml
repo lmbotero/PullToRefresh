@@ -43,5 +43,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: ./build/dokka/html
-          branch: gh-pages
+          branch: gh_pages
           force: true
