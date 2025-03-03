@@ -1,0 +1,6 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:pullToRefresh
+io.github.lmbotero.pulltorefresh.ui
+io.github.lmbotero.pulltorefresh.util
