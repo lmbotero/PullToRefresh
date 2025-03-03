@@ -7,11 +7,11 @@ plugins {
     alias(libs.plugins.android.application).apply(false)
     alias(libs.plugins.android.library).apply(false)
     alias(libs.plugins.jlleitschuh.ktlint)
-    id("dokka-convention")
+    alias(libs.plugins.dokka)
 }
 
 subprojects {
-    apply(plugin = "dokka-convention")
+    apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     configure<KtlintExtension> {
@@ -21,6 +21,5 @@ subprojects {
 }
 
 dependencies {
-    dokka(project(":sample:composeApp"))
     dokka(project(":pullToRefresh"))
 }
