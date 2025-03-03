@@ -1,3 +1,5 @@
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
+
 plugins {
     alias(libs.plugins.multiplatform).apply(false)
     alias(libs.plugins.compose.compiler).apply(false)
@@ -12,7 +14,7 @@ subprojects {
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    configure<KtlintExtension> {
         version.set("1.5.0")
         enableExperimentalRules.set(true)
     }
