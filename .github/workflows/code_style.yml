@@ -1,4 +1,4 @@
-name: Build Multiplatform project
+name: Check code style
 on:
   push:
     branches:
@@ -6,13 +6,8 @@ on:
   pull_request:
 
 jobs:
-  build-multiplatform-project:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
-        gradle: [ 8.3 ]
-    runs-on: ${{ matrix.os }}
+  check-code-style:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,6 +21,6 @@ jobs:
       - name: Grant Permission to Execute Gradle
         run: chmod +x gradlew
 
-      - name: Build project
+      - name: Check code style
         shell: bash
-        run: ./gradlew assemble
+        run: ./gradlew ktlintCheck

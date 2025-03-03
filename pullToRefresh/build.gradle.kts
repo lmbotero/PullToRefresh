@@ -119,6 +119,9 @@ mavenPublishing {
         }
     }
 
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral(
+        host = SonatypeHost.CENTRAL_PORTAL,
+        automaticRelease = true,
+    )
     signAllPublications()
 }
