@@ -11,7 +11,7 @@ jlleitschuhKtlint = "12.1.2"
 
 groupId = "io.github.lmbotero"
 artifactId = "pull-to-refresh"
-libVersion = "1.0.0"
+libVersion = "1.0.1"
 
 [libraries]
 
