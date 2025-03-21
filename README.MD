@@ -1,8 +1,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/lmbotero/PullToRefresh/code_style.yml?branch=main&label=Check%20code%20style)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/lmbotero/PullToRefresh/build.yml?branch=main&label=Build%20multiplatform%20project)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/lmbotero/PullToRefresh/wiki.yml?branch=main&label=Publish%20wiki)
-![GitHub Release](https://img.shields.io/github/v/release/lmbotero/PullToRefresh)
 ![GitHub License](https://img.shields.io/github/license/lmbotero/PullToRefresh)
+![GitHub Release](https://img.shields.io/github/v/release/lmbotero/PullToRefresh)
 
 # Compose Multiplatform PullToRefresh
 
@@ -24,14 +23,35 @@ Add the dependency to your `build.gradle.kts` (or `build.gradle` for Groovy user
 implementation("io.github.lmbotero:pull-to-refresh:<latest-version>")
 ```
 
+or using version catalog:
+
+```kotlin
+[versions]
+pullToRefreshVersion = "<latest-version>"
+
+[libraries]
+pullToRefresh = { module = "io.github.lmbotero:pull-to-refresh", version.ref = "pullToRefreshVersion" }
+```
+
+Then add the dependency to your `build.gradle.kts` into the `common dependencies` block as follows:
+
+```kotlin
+commonMain.dependencies {
+    implementation(libs.pullToRefresh)
+}
+```
+
 ## 🚀 Basic Usage
 
 Wrap your composable content inside `PullToRefreshLayout`:
 
 ```kotlin
 PullToRefreshLayout(
-    isRefreshing = isLoading,
-    onRefresh = { /* Execute your pull-to-refresh task */ },
+    refreshStateEvent =
+        RefreshStateEvent(
+            isRefreshing = isLoading,
+            onRefresh = { /* Fetch data */ },
+        ),
 ) {
     // Your composable content here
 }
@@ -39,31 +59,11 @@ PullToRefreshLayout(
 
 ## 🎨 Customization
 
-### Modify Threshold & State
-
-You can customize the refresh threshold and state using `rememberPullToRefreshConfig`.
-
-```kotlin
-val config = rememberPullToRefreshConfig(
-    enabled = true,
-    threshold = 60.dp
-)
-
-PullToRefreshLayout(
-    isRefreshing = isLoading,
-    onRefresh = { /* execute your pull-to-refresh task */ },
-    config = config
-) {
-    // Your composable content here
-}
-```
-
-### Custom Refresh Indicator
-
-Override the default indicator using the `indicator` parameter.
+You can set your own implementation of the loading indicator by passing a custom composable into
+```indicator``` parameter.
 
 See https://developer.android.com/reference/kotlin/androidx/compose/material3/pulltorefresh/package-summary.html
-to see the official material3 `pull-to-refresh` reference
+to see the official material3 `pull-to-refresh` reference and documentation.
 
 ## 📚 API Reference
 
@@ -72,53 +72,44 @@ to see the official material3 `pull-to-refresh` reference
 ```kotlin
 @Composable
 fun PullToRefreshLayout(
-    isRefreshing: Boolean,
-    onRefresh: () -> Unit,
+    refreshStateEvent: RefreshStateEvent,
     modifier: Modifier = Modifier,
-    config: PullToRefreshConfig = rememberPullToRefreshConfig(),
+    enabled: Boolean = true,
+    threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
     state: PullToRefreshState = rememberPullToRefreshState(),
     indicator: @Composable BoxScope.() -> Unit = {
         DefaultIndicator(
             state = state,
-            isRefreshing = isRefreshing,
+            isRefreshing = refreshStateEvent.isRefreshing,
         )
     },
-    contentAlignment: Alignment = Alignment.TopStart,
-    content: @Composable BoxScope.() -> Unit
+    content: @Composable BoxScope.() -> Unit,
 )
 ```
 
-| Parameter          | Type                              | Description                                                 |
-|--------------------|-----------------------------------|-------------------------------------------------------------|
-| `isRefreshing`     | `Boolean`                         | Whether the content is currently refreshing                 |
-| `onRefresh`        | `() -> Unit`                      | A function to execute when the content is pulled to refresh |
-| `modifier`         | `Modifier`                        | Modifier for the layout                                     |
-| `config`           | `PullToRefreshConfig`             | Configuration for the pull-to-refresh                       |
-| `state`            | `PullToRefreshState`              | State for the pull-to-refresh                               |
-| `indicator`        | `@Composable BoxScope.() -> Unit` | Composable loading indicator                                |
-| `contentAlignment` | `Alignment`                       | Alignment for the content                                   |
-| `content`          | `@Composable BoxScope.() -> Unit` | Composable content                                          |
+| Parameter           | Type                              | Description                                                               |
+|---------------------|-----------------------------------|---------------------------------------------------------------------------|
+| `refreshStateEvent` | `RefreshStateEvent`               | Represents the current update state and handles the event when it changes |
+| `modifier`          | `Modifier`                        | Modifier for the layout                                                   |
+| `enabled`           | `Boolean`                         | Whether the pull-to-refresh is enabled or not                             |
+| `threshold`         | `Dp`                              | The distance threshold for triggering the refresh event                   |
+| `state`             | `PullToRefreshState`              | State for the pull-to-refresh                                             |
+| `indicator`         | `@Composable BoxScope.() -> Unit` | Composable loading indicator                                              |
+| `content`           | `@Composable BoxScope.() -> Unit` | Composable content                                                        |
 
 ### PullToRefreshConfig
 
 ```kotlin
-data class PullToRefreshConfig(
-    val enabled: Boolean = true,
-    val threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
+data class RefreshStateEvent(
+    val isRefreshing: Boolean,
+    val onRefresh: () -> Unit,
 )
 ```
 
-### rememberPullToRefreshConfig
-
-```kotlin
-@Composable
-fun rememberPullToRefreshConfig(
-    enabled: Boolean = true,
-    threshold: Dp = PullToRefreshDefaults.PositionalThreshold,
-): PullToRefreshConfig
-```
-
-- Returns: A `PullToRefreshConfig` instance with saved state.
+| Parameter      | Type         | Description                                                 |
+|----------------|--------------|-------------------------------------------------------------|
+| `isRefreshing` | `Boolean`    | Whether the refresh is currently in progress or not         |
+| `onRefresh`    | `() -> Unit` | Function to be executed when the refresh event is triggered |
 
 ## 📜 License
 
