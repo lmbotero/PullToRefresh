@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.lmbotero.pulltorefresh.sample.theme.AppTheme
 import io.github.lmbotero.pulltorefresh.ui.PullToRefreshLayout
+import io.github.lmbotero.pulltorefresh.util.RefreshStateEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -47,9 +48,11 @@ internal fun App() =
                     .background(MaterialTheme.colorScheme.surface)
                     .windowInsetsPadding(WindowInsets.safeDrawing)
                     .padding(16.dp),
-            isRefreshing = isLoading,
-            onRefresh = onPullToRefresh,
-            contentAlignment = Alignment.Center,
+            refreshStateEvent =
+                RefreshStateEvent(
+                    isRefreshing = isLoading,
+                    onRefresh = onPullToRefresh,
+                ),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
